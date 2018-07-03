@@ -30,7 +30,7 @@ import org.springframework.cloud.stream.binder.ExtendedConsumerProperties;
 import org.springframework.cloud.stream.binder.jms.config.JmsConsumerProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.integration.dsl.jms.JmsMessageDrivenChannelAdapter;
+import org.springframework.integration.jms.JmsMessageDrivenEndpoint;
 import org.springframework.integration.jms.ChannelPublishingJmsMessageListener;
 import org.springframework.retry.RecoveryCallback;
 import org.springframework.retry.RetryCallback;
@@ -73,12 +73,12 @@ public class JmsMessageDrivenChannelAdapterFactory implements ApplicationContext
 		this.applicationContext = applicationContext;
 	}
 
-	public JmsMessageDrivenChannelAdapter build(Queue destination,
+	public JmsMessageDrivenEndpoint build(Queue destination,
 			final ExtendedConsumerProperties<JmsConsumerProperties> properties) {
 		RetryingChannelPublishingJmsMessageListener listener = new RetryingChannelPublishingJmsMessageListener(
 				properties, messageRecoverer, properties.getExtension().getDlqName());
 		listener.setBeanFactory(this.beanFactory);
-		JmsMessageDrivenChannelAdapter adapter = new JmsMessageDrivenChannelAdapter(
+		JmsMessageDrivenEndpoint adapter = new JmsMessageDrivenEndpoint(
 				listenerContainerFactory.build(destination), listener);
 		adapter.setApplicationContext(this.applicationContext);
 		adapter.setBeanFactory(this.beanFactory);
