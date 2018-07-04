@@ -35,7 +35,6 @@ import org.springframework.cloud.stream.binder.jms.utils.SpecCompliantJmsHeaderM
 import org.springframework.cloud.stream.provisioning.ProvisioningProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.integration.codec.Codec;
 import org.springframework.jms.core.JmsTemplate;
 
 /**
@@ -106,13 +105,12 @@ public class JmsBinderGlobalConfiguration {
 		private JmsExtendedBindingProperties jmsExtendedBindingProperties;
 
 		@Bean
-		JMSMessageChannelBinder jmsMessageChannelBinder(Codec codec,
+		JMSMessageChannelBinder jmsMessageChannelBinder(
 				JmsMessageDrivenChannelAdapterFactory jmsMessageDrivenChannelAdapterFactory,
 				JmsSendingMessageHandlerFactory jmsSendingMessageHandlerFactory, JmsTemplate jmsTemplate) throws Exception {
 
 			JMSMessageChannelBinder jmsMessageChannelBinder = new JMSMessageChannelBinder(provisioningProvider,
 					jmsSendingMessageHandlerFactory, jmsMessageDrivenChannelAdapterFactory, jmsTemplate, connectionFactory);
-			jmsMessageChannelBinder.setCodec(codec);
 			jmsMessageChannelBinder.setExtendedBindingProperties(jmsExtendedBindingProperties);
 			return jmsMessageChannelBinder;
 		}

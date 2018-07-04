@@ -18,7 +18,6 @@ package org.springframework.cloud.stream.binder.jms.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.stream.binder.Binder;
-import org.springframework.cloud.stream.config.codec.kryo.KryoCodecAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -33,7 +32,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @ConditionalOnMissingBean(Binder.class)
-@Import({JmsBinderGlobalConfiguration.class, KryoCodecAutoConfiguration.class})
+@Import(JmsBinderGlobalConfiguration.class)
 public class JmsBinderAutoConfiguration {
 
 }

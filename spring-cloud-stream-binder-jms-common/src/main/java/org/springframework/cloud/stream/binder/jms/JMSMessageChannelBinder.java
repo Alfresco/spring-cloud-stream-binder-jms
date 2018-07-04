@@ -83,7 +83,7 @@ public class JMSMessageChannelBinder
 
 	@Override
 	protected MessageHandler createProducerMessageHandler(ProducerDestination producerDestination,
-			ExtendedProducerProperties<JmsProducerProperties> producerProperties) throws Exception {
+			ExtendedProducerProperties<JmsProducerProperties> producerProperties, MessageChannel errorChannel) throws Exception {
 		TopicPartitionRegistrar topicPartitionRegistrar = new TopicPartitionRegistrar();
 		Session session = connectionFactory.createConnection().createSession(true, 1);
 
